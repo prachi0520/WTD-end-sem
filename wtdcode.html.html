@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sneaker Ad</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    body, html {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to bottom, #1a2535, #2d3a4f);
+      overflow: hidden;
+    }
+    .poster {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, #1a2535, #2d3a4f);
+      color: white;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 1;
+      transition: opacity 1s ease-in-out;
+    }
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .shoe {
+      width: 20%;
+      margin-top: 20px;
+      animation: fadeInOut 3s infinite;
+      transition: transform 0.3s ease-in-out;
+    }
+    .shoe:hover {
+      transform: scale(1.1);
+      z-index: 10;
+    }
+    @keyframes fadeInOut {
+      0% { opacity: 0; }
+      50% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    .fade-image {
+      animation: fadeInOut 3s infinite;
+    }
+    .glow {
+      text-shadow: 0px 0px 10px rgba(100, 150, 255, 0.7);
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .animated-border {
+      border: 3px solid #3f51b5;
+      padding: 5px 15px;
+      border-radius: 10px;
+      animation: glowEffect 2s infinite alternate;
+    }
+    @keyframes glowEffect {
+      0% { box-shadow: 0px 0px 10px rgba(63, 81, 181, 0.7); }
+      100% { box-shadow: 0px 0px 20px rgba(100, 150, 255, 0.9); }
+    }
+    .collection {
+      width: 80%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    .collection-item {
+      text-align: center;
+    }
+    .collection-item img {
+      width: 150px;
+      height: auto;
+      transition: transform 0.3s ease-in-out;
+      display: block;
+      margin: 0 auto;
+    }
+    .collection-item img:hover {
+      transform: scale(1.5);
+      z-index: 10;
+    }
+    .collection-item p {
+      margin-top: 5px;
+      font-size: 16px;
+      color: white;
+    }
+    .cta {
+      background: #3f51b5;
+      padding: 15px 30px;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 50px;
+      color: white;
+      display: inline-block;
+      text-transform: uppercase;
+      border: 3px solid white;
+      cursor: pointer;
+      animation: fadeInOut 3s infinite;
+    }
+    h2.glow {
+      margin-bottom: 20px;
+    }
+    h1.animated-border {
+      margin-top: 10px;
+    }
+    .tagline {
+      color: #b3e5fc;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+
+    .banner {
+      position: absolute;
+      left: 0;
+      top: -50px;
+      background-color: #d26868;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-transform: uppercase;
+      box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.7);
+      z-index: 10;
+      white-space: nowrap;
+      animation: scrollDown 5s linear infinite;
+    }
+
+    @keyframes scrollDown {
+      0% { top: -50px; }
+      100% { top: 100%; }
+    }
+
+    .discount-bubble {
+      position: absolute;
+      right: 50px;
+      top: 30%;
+      width: 150px;
+      height: 150px;
+      background-color: #e65454;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      box-shadow: 0 0 20px rgba(244, 101, 101, 0.8);
+      animation: fadeInOut 3s infinite;
+      z-index: 10;
+      text-align: center;
+      padding: 10px;
+    }
+    
+    .nav-button-right {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      background: #3f51b5;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      border: 2px solid white;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 0 10px rgba(100, 150, 255, 0.7);
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+    
+    .nav-button-left {
+      position: absolute;
+      bottom: 30px;
+      left: 30px;
+      background: #3f51b5;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      border: 2px solid white;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 0 10px rgba(100, 150, 255, 0.7);
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+    
+    .nav-button-right:hover, .nav-button-left:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(100, 150, 255, 0.9);
+    }
+    
+    .nav-button-right i, .nav-button-left i {
+      font-size: 18px;
+    }
+    
+    .shoe-name-container {
+      margin-top: 30px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .shoe-name {
+      font-size: 40px;
+      font-weight: 900;
+      color: white;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 2;
+      font-family: 'Impact', sans-serif;
+      margin-bottom: 5px;
+    }
+    
+    .mirror {
+      font-size: 40px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: 'Impact', sans-serif;
+      position: relative;
+      transform: scaleY(-1);
+      color: rgba(255, 255, 255, 0.4);
+      filter: blur(1px);
+      opacity: 0.7;
+      margin-top: -5px;
+    }
+  </style>
+
+  <script>
+    function showCollection() {
+      document.querySelector('.main-page').classList.add('hidden');
+      setTimeout(() => {
+        document.querySelector('.main-page').style.display = 'none';
+        document.querySelector('.collection-page').style.display = 'flex';
+        setTimeout(() => {
+          document.querySelector('.collection-page').classList.remove('hidden');
+        }, 50);
+      }, 1000);
+    }
+    function showMainPage() {
+      document.querySelector('.collection-page').classList.add('hidden');
+      setTimeout(() => {
+        document.querySelector('.collection-page').style.display = 'none';
+        document.querySelector('.main-page').style.display = 'flex';
+        setTimeout(() => {
+          document.querySelector('.main-page').classList.remove('hidden');
+        }, 50);
+      }, 1000);
+    }
+  </script>
+</head>
+<body>
+  <div class="poster main-page">
+    <h2 class="glow">NEW COLLECTION</h2>
+    <h1 class="animated-border">SNEAKERS</h1>
+    <p class="tagline">"Step into style. Step into comfort."</p>
+    <img src="C:/Users/hp/OneDrive/Desktop/webtech/images/1.webp" alt="Sneaker" class="shoe">
+    
+    <div class="shoe-name-container">
+      <div class="shoe-name">AIR JORDAN 1 HIGH OG</div>
+      <div class="mirror">AIR JORDAN 1 HIGH OG</div>
+    </div>
+    
+    <div class="nav-button-right" onclick="showCollection()">
+      <span>SWIPE RIGHT</span>
+      <i>→</i>
+    </div>
+    <div class="banner">"Only a Few Left!"</div>
+    <div class="discount-bubble">UP TO 70% OFF</div>
+  </div>
+
+  <div class="poster collection-page hidden" style="display: none;">
+    <h2 class="glow">EXCLUSIVE COLLECTION</h2>
+    <p class="tagline">"Unleash your style. Own the streets."</p>
+    <div class="collection">
+      <div class="collection-item">
+        <img src="C:/Users/hp/OneDrive/Desktop/webtech/images/2.webp" alt="Sneaker 1" class="fade-image">
+        <p class="animated-border">AIR JORDAN 1 RETRO OG - ₹40,000</p>
+      </div>
+      <div class="collection-item">
+        <img src="C:/Users/hp/OneDrive/Desktop/webtech/images/3.webp" alt="Sneaker 2" class="fade-image">
+        <p class="animated-border">AIR JORDAN 1 LOW UNC - ₹35,000</p>
+      </div>
+      <div class="collection-item">
+        <img src="C:/Users/hp/OneDrive/Desktop/webtech/images/4.webp" alt="Sneaker 3" class="fade-image">
+        <p class="animated-border">AMBUSH X NIKE AIR FORCE 1 LOW - ₹50,000</p>
+      </div>
+      <div class="collection-item">
+        <img src="C:/Users/hp/OneDrive/Desktop/webtech/images/5.webp" alt="Sneaker 4" class="fade-image">
+        <p class="animated-border">MARVEL X AIR JORDAN 1 RETRO HIGH - ₹20,000</p>
+      </div>
+    </div>
+    <div class="cta">ORDER NOW</div>
+    <div class="nav-button-left" onclick="showMainPage()">
+      <i>←</i>
+      <span>SWIPE LEFT</span>
+    </div>
+  </div>
+</body>
+</html>
